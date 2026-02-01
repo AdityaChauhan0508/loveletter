@@ -2,28 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Create Love Page 💌</title>
+  <title>Create Love Page 💖</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
   <div class="container">
 
-    <h1>Create Your Love Page 💖</h1>
+    <h1>Create Your Love Page 💌</h1>
 
+    <!-- FORM START -->
     <form id="loveForm">
 
-      <input type="text" id="yourName" placeholder="Your Name" required>
+      <input
+        type="text"
+        id="yourName"
+        placeholder="Your Name"
+        required
+      >
 
-      <input type="text" id="partnerName" placeholder="Partner Name" required>
+      <input
+        type="text"
+        id="partnerName"
+        placeholder="Partner Name"
+        required
+      >
 
-      <textarea id="message" placeholder="Your Love Message ❤️" required></textarea>
+      <textarea
+        id="message"
+        placeholder="Write your message ❤️"
+        required
+      ></textarea>
 
+      <label>Select Music 🎵</label>
+
+      <select id="music" required>
+        <option value="love.mp3">Love 💖</option>
+        <option value="romantic.mp3">Romantic 🌹</option>
+        <option value="soft.mp3">Soft 🥰</option>
+      </select>
+
+      <!-- SUBMIT BUTTON -->
       <button type="submit">
-        Generate Love Page 💘
+        Generate Page 💕
       </button>
 
     </form>
+    <!-- FORM END -->
 
   </div>
 
