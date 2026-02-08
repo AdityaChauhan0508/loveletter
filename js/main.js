@@ -56,7 +56,27 @@ document.addEventListener("DOMContentLoaded", function () {
   // Fill content
   if (toName) toName.innerText = "💖 Dear " + data.partnerName;
   if (fromName) fromName.innerText = data.yourName;
-  if (loveMessage) loveMessage.innerText = data.message;
+  // Typing Effect
+if (loveMessage) {
+
+  let text = data.message;
+  let i = 0;
+
+  loveMessage.innerText = "";
+
+  const typing = setInterval(() => {
+
+    loveMessage.innerText += text.charAt(i);
+    i++;
+
+    if (i === text.length) {
+      clearInterval(typing);
+    }
+
+  }, 50);
+
+}
+
 
   // Setup music
   if (musicPlayer && data.music && playBtn) {
@@ -95,7 +115,11 @@ setInterval(() => {
 
   const heart = document.createElement("div");
   heart.classList.add("heart");
-  heart.innerHTML = "💖";
+ const hearts = ["❤️","💖","💘","💝","💗","💓"];
+
+heart.innerHTML =
+  hearts[Math.floor(Math.random() * hearts.length)];
+
 
   heart.style.left = Math.random() * 100 + "vw";
 
