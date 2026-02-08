@@ -77,7 +77,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (musicPlayer && data.music && playBtn) {
 
-    musicPlayer.src = "./assets/" + data.music;
+    musicPlayer.src = "/assets/" + data.music;
+
     musicPlayer.load();
 
     playBtn.addEventListener("click", () => {
