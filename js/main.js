@@ -8,7 +8,6 @@ function goToCreate() {
 const form = document.getElementById("loveForm");
 
 if (form) {
-
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -17,7 +16,6 @@ if (form) {
     const message = document.getElementById("message").value.trim();
     const music = document.getElementById("music").value;
 
-    // Validation
     if (!yourName || !partnerName || !message) {
       alert("Please fill all fields ❤️");
       return;
@@ -30,13 +28,10 @@ if (form) {
       music
     };
 
-    // Save to localStorage
     localStorage.setItem("loveData", JSON.stringify(loveData));
 
-    // Redirect
     window.location.href = "love.html";
   });
-
 }
 
 // ---------------- LOVE PAGE ----------------
@@ -44,7 +39,6 @@ if (form) {
 document.addEventListener("DOMContentLoaded", function () {
 
   const data = JSON.parse(localStorage.getItem("loveData"));
-
   if (!data) return;
 
   const toName = document.getElementById("toName");
@@ -52,37 +46,39 @@ document.addEventListener("DOMContentLoaded", function () {
   const loveMessage = document.getElementById("loveMessage");
   const musicPlayer = document.getElementById("musicPlayer");
   const playBtn = document.getElementById("playMusicBtn");
+  const shareBtn = document.getElementById("shareBtn");
 
-  // Fill content
-  if (toName) toName.innerText = "💖 Dear " + data.partnerName;
-  if (fromName) fromName.innerText = data.yourName;
-  // Typing Effect
-if (loveMessage) {
+  // Fill names
+  if (toName) toName.textContent = "💖 Dear " + data.partnerName;
+  if (fromName) fromName.textContent = data.yourName;
 
-  let text = data.message;
-  let i = 0;
+  // ----------- Typing Effect (FIXED) -----------
 
-  loveMessage.innerText = "";
+  if (loveMessage) {
 
-  const typing = setInterval(() => {
+    let text = data.message;
+    let index = 0;
 
-    loveMessage.innerText += text.charAt(i);
-    i++;
+    loveMessage.textContent = "";
 
-    if (i === text.length) {
-      clearInterval(typing);
-    }
+    const typingInterval = setInterval(() => {
 
-  }, 50);
+      loveMessage.textContent += text.charAt(index);
+      index++;
 
-}
+      if (index >= text.length) {
+        clearInterval(typingInterval);
+      }
 
+    }, 40);
+  }
 
-  // Setup music
+  // ----------- Music -----------
+
   if (musicPlayer && data.music && playBtn) {
 
-    musicPlayer.src = "assets/" + data.music;
-    musicPlayer.load(); // IMPORTANT
+    musicPlayer.src = "./assets/" + data.music;
+    musicPlayer.load();
 
     playBtn.addEventListener("click", () => {
 
@@ -97,29 +93,42 @@ if (loveMessage) {
         });
 
     });
+  }
 
+  // ----------- Share -----------
+
+  if (shareBtn) {
+
+    shareBtn.addEventListener("click", () => {
+
+      navigator.clipboard.writeText(window.location.href)
+        .then(() => {
+          alert("Link copied! 💖 Share it now 😍");
+        });
+
+    });
   }
 
 });
 
-
 // ---------------- HOME ----------------
 
 function goHome() {
-  localStorage.removeItem("loveData"); // clear old data
+  localStorage.removeItem("loveData");
   window.location.href = "index.html";
 }
 
-// Floating Hearts
+// ---------------- Floating Hearts ----------------
+
 setInterval(() => {
 
   const heart = document.createElement("div");
   heart.classList.add("heart");
- const hearts = ["❤️","💖","💘","💝","💗","💓"];
 
-heart.innerHTML =
-  hearts[Math.floor(Math.random() * hearts.length)];
+  const hearts = ["❤️","💖","💘","💝","💗","💓"];
 
+  heart.innerHTML =
+    hearts[Math.floor(Math.random() * hearts.length)];
 
   heart.style.left = Math.random() * 100 + "vw";
 
@@ -130,23 +139,3 @@ heart.innerHTML =
   }, 5000);
 
 }, 300);
-
-// Share Feature
-const shareBtn = document.getElementById("shareBtn");
-
-if (shareBtn) {
-
-  shareBtn.addEventListener("click", () => {
-
-    const url = window.location.href;
-
-    navigator.clipboard.writeText(url).then(() => {
-
-      alert("Link copied! 💖 Share it now 😍");
-
-    });
-
-  });
-
-}
-

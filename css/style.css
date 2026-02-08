@@ -218,3 +218,16 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+#loveMessage {
+  white-space: pre-wrap;   /* Keeps line breaks */
+  word-wrap: break-word;  /* Breaks long words */
+  overflow-wrap: break-word;
+  text-align: center;
+  max-width: 100%;
+}
+#loveMessage {
+  line-height: 1.7;
+  font-size: 17px;
+  margin: 20px 0;
+  padding: 0 10px;
+}
